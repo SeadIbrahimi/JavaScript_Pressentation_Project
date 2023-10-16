@@ -1,0 +1,55 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARTICLES | SHOPPING</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <header></header>
+
+    <section id="slider"></section>
+    <section class="bg-light pt-0 pb-5 shadow-sm ">
+        <div id="categories" class="container-fluid mb-5"></div>
+        <div class="container ">
+            
+            <div id="articles">
+                
+                <div class="row pt-5">
+                    <div class="col-12">
+                        <h3 class="text-uppercase text-center border-bottom mb-4">Search what you need!</h3>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+    
+    <footer></footer>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script type="module" src="./node_modules/axios/dist/axios.min.js"></script>
+    <script type="module">
+        import {initHeader} from './components/Header.js';
+        import {initCategories} from './components/Categories.js'
+        import {getArticle, composeArticles} from './components/Articles.js';
+        import {initFooter} from './components/Footer.js';
+        
+
+        initHeader(document.querySelector('header'))
+        initCategories(document.querySelector('#categories'))
+        let category = null
+        
+
+        getArticle(category).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
+        
+
+        initFooter(document.querySelector('footer'))
+    </script>
+</body>
+</html> -->

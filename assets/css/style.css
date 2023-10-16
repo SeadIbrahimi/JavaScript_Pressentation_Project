@@ -1,0 +1,86 @@
+body{
+    margin: 0px !important;
+    padding: 0px !important;
+
+}
+
+/* NAVBAR */ 
+.navbar{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.navbar-collapse{
+    padding: 10px;
+}
+.navbar-collapse img{
+    height: 40px;
+}
+.navbar ul li a{
+    color: white;
+}
+.search-nav{
+    border: none !important;
+    width: 500px;
+}
+.search-nav::placeholder{
+    color: white;
+}
+/* NAVBAR 2*/ 
+.navbar2{
+    padding: 0px !important;
+}
+.navbar2 ul li{
+    border: 1px solid rgba(224, 224, 224, 0.959);
+}
+
+.navbar2 a{
+    color: black !important;
+    padding: 15px !important;
+}
+
+/* DIVI QE I MBAN ADs nen heder*/
+
+.ads{
+    margin-top: -20px !important;
+    z-index: 30 !important;
+    border-radius: 5px !important;
+    -webkit-box-shadow: 0px 10px 73px -24px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 10px 73px -24px rgba(0,0,0,0.75);
+    box-shadow: 0px 10px 73px -24px rgba(0,0,0,0.75);
+    padding: 0px !important;
+    width: fit-content;
+}
+.ads img{
+    border-radius: 5px !important;
+}
+
+/* card-group */
+
+.card-group{
+    margin-top: 50px;
+    padding: 0 !important;
+    gap: 10px;
+}
+
+.card-group .card{
+    border-radius: 10px !important;
+    -webkit-box-shadow: 0px 10px 73px -24px rgba(0, 0, 0, 0.171);
+    -moz-box-shadow: 0px 10px 73px -24px rgba(0, 0, 0, 0.178);
+    box-shadow: 0px 10px 73px -24px rgba(0, 0, 0, 0.11);
+    flex-basis: 18% !important;
+}
+
+
+.red-bg {
+    background-color: rgb(173, 105, 105);
+    color: white;
+    font-weight: 700;
+    line-height: 35px;
+    text-align: center;
+}
+
+
+.imgholder{
+    height: 200px !important;
+    overflow: hidden !important;
+}
