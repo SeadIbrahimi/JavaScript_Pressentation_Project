@@ -53,7 +53,6 @@
             for (let child of parent){
                 addDynamicEventListener(document.body, 'click', `li, ${child.getAttribute('id')}`, function (e) {
                     e.preventDefault()
-                    //KETU ESHTE I NJEJTI FUNKSION QE THIRR KATEGORIT DHE FUNKSIONON NRREGULL
                     getArticle('category', e.target.attributes[0].value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
                 })
             }
@@ -63,10 +62,7 @@
             addDynamicEventListener(document.body, 'submit', `form, .search-nav`, function (e) {
                 e.preventDefault()
                 let search = document.querySelector('.search-nav')
-                console.log(search.value)  // ***Kjo ktu kthen vleren e shkruar tek search****
-                                    
-                                    //kjo vlera ktu ish dasht me ju shtu linkut qe bene search
-                                    //dhe ti kthej rezultatet ne sesionin me id "articles"
+                console.log(search.value)
                 getArticle('search', search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
             })
         }, 500)

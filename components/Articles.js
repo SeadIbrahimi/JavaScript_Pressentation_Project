@@ -3,28 +3,22 @@
 
 
 export function getArticle(type, value){
-    
-    const ComposeUrl = (url) => {
-        if (type == null){
-            url = `https://dummyjson.com/products`
-            return url
-        }else if (type == 'categories'){
+    let url = `https://dummyjson.com/products`
+
+
+        if (type == 'categories'){
             url = `https://dummyjson.com/products/categories`
-            return url
         }else if (type == 'category'){
             url = `https://dummyjson.com/products/category/${value}`
-            return url
         }else if (type == 'limit'){
             url = `https://dummyjson.com/products?limit=${value}`
-            return url
         }else if (type == 'sort'){
             url = `https://dummyjson.com/products?sort=${value}`
-            return url
         }else if (type == 'search'){
             url = `https://dummyjson.com/products/search?q=${value}`
         }
-    };
-    return axios.get(ComposeUrl())
+
+    return axios.get(url)
     .then(response => response)
 }
     
