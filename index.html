@@ -12,10 +12,25 @@
     <header></header>
     <div id="categories" class="container-fluid bg-body-tertiary"></div>
     <section id="slider"></section>
+    <section>
+        <div class="container bg-light ads">
+            <img src="https://hhstsyoejx.gjirafa.net/gjirafa50core/images/0b023043-5e72-4efc-9169-0d9bf9280493/0b023043-5e72-4efc-9169-0d9bf9280493.webp?w=1280" alt="">
+        </div>
+
+    </section>
     <section class="bg-light pt-5 pb-5 shadow-sm ">
-        
         <div class="container ">
-            
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle mb-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Sort by
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </div>
+
             <div id="articles">
                 
                 <div class="row pt-5">
@@ -39,21 +54,21 @@
         import {initHeader} from './components/Header.js';
         import {composeCategories} from './components/Categories.js'
         import {initSlider} from './components/Slider.js';
-        import {getArticle, composeArticles} from './components/Articles.js';
+        import {getArticles, composeArticles} from './components/Articles.js';
         import {initFooter} from './components/Footer.js';
         
 
         initHeader(document.querySelector('header'))
-        getArticle('categories').then(object => document.querySelector('#categories').innerHTML = composeCategories(object.data))
+        getArticles('categories', 'products').then(object => document.querySelector('#categories').innerHTML = composeCategories(object.data))
         initSlider(document.querySelector('#slider'))
-        getArticle().then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
+        getArticles('', 'products').then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
         initFooter(document.querySelector('footer'))
         setTimeout(() => {
             let parent = document.querySelectorAll('.btn-nav')
             for (let child of parent){
                 addDynamicEventListener(document.body, 'click', `li, ${child.getAttribute('id')}`, function (e) {
                     e.preventDefault()
-                    getArticle('category', e.target.attributes[0].value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
+                    getArticles('category', 'products', e.target.attributes[0].value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
                 })
             }
 
@@ -63,9 +78,10 @@
                 e.preventDefault()
                 let search = document.querySelector('.search-nav')
                 console.log(search.value)
-                getArticle('search', search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
+                getArticles('search', 'products',search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
             })
         }, 500)
+        
     </script>
 </body>
 </html>
