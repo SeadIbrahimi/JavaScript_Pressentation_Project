@@ -11,8 +11,13 @@
 <body>
     <header></header>
     
-    <section id="itemDetails" class="bg-light pt-5 pb-5 shadow-sm ">
-        
+    <section class="bg-light pt-5 pb-5 shadow-sm ">
+        <div id="itemDetails" class="container">
+
+        </div>
+        <div id="itemFeedback" class="container">
+
+        </div>
     </section>
     
     <footer></footer>
@@ -25,16 +30,17 @@
     <script type="module">
         import {initHeader} from './components/Header.js';
         import {getArticles} from './components/Articles.js';
-        import {composeArticle} from './components/Article.js';
+        import {composeArticle, composeFeedback} from './components/Article.js';
         import {initFooter} from './components/Footer.js';
         
 
         initHeader(document.querySelector('header'))
        
         const paramsString = window.location.href.split('=')[1];
-        console.log(paramsString)
+
         if(window.location.href.includes('?')) {
             getArticles('id', 'products', paramsString).then(object => document.querySelector('#itemDetails').innerHTML = composeArticle(object.data))
+            getArticles(null , 'comments').then(object => document.querySelector('#itemFeedback').innerHTML = composeFeedback(object.data, paramsString))
         }else {
             window.location.href = 'http://127.0.0.1:5500'
         }
@@ -45,14 +51,14 @@
         initFooter(document.querySelector('footer'))
         
 
-        setTimeout(() => {
-            addDynamicEventListener(document.body, 'submit', `form, .search-nav`, function (e) {
-                e.preventDefault()
-                let search = document.querySelector('.search-nav')
-                console.log(search.value)
-                getArticle('search', 'products', search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
-            })
-        }, 500)
+        // setTimeout(() => {  RREGULLOJE SEARCH tek Article
+        //     addDynamicEventListener(document.body, 'submit', `form, .search-nav`, function (e) {
+        //         e.preventDefault()
+        //         let search = document.querySelector('.search-nav')
+        //         console.log(search.value)
+        //         getArticle('search', 'products', search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
+        //     })
+        // }, 500)
         
     </script>
 </body>

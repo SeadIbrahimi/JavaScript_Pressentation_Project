@@ -69,6 +69,25 @@ body{
 }
 
 .imgholder{
-    height: 200px !important;
+    width: 100% !important;
+    height: 80% !important;
     overflow: hidden !important;
+    position: relative !important;
+}
+.carousel-indicators{
+    margin: 0px !important;
+    position: relative !important;
+}
+.carousel-indicators button{
+    height: 80px !important;
+    width: 80px !important;
+    margin: 0 5px !important;
+    background-position: center !important;
+    background-size: contain !important;
+    border-radius: 5px !important;
+    transition: all 0.3s linear !important;
+}
+.carousel-indicators button:active{
+    border: 2px solid rgb(255, 0, 0) !important;
+    transform: scale(1.2) !important;
 }

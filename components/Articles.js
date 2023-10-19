@@ -1,5 +1,3 @@
-// import axios from "axios";
-
 
 
 export function getArticles(type, what, value){
@@ -64,11 +62,7 @@ export function composeArticles(articles){
     </div>`
     return html
         
-        
-    
-    
 }
-        
 function rating(number, decimal){
     let star = ''
     for (let i=1; i<=number; i++){
