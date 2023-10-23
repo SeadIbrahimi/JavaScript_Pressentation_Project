@@ -1,6 +1,6 @@
 
 
-export function getArticles(type, what, value){
+export async function getArticles(type, what, value){
     let url = `https://dummyjson.com/${what}`
 
 
@@ -18,7 +18,7 @@ export function getArticles(type, what, value){
             url = `https://dummyjson.com/${what}/${value}`
         }
 
-    return axios.get(url)
+    return await axios.get(url)
     .then(response => response)
 }
     
@@ -36,7 +36,7 @@ export function composeArticles(articles){
         html += `
         <div class="col-lg-3 mb-3 d-flex align-items-stretch">
             <div class="card">
-                <a href="article.html?id=${article.id}"><div class="imgholder"><img src='${img}' class="card-img-top align-items-center" alt="${article.title}"></div></a>
+                <a href="article.html?id=${article.id}"><div class="imgholder"><img src='${img}' class="card-img-top " alt="${article.title}"></div></a>
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title">${article.title}</h5>
                     <hr>
@@ -51,7 +51,7 @@ export function composeArticles(articles){
                         <p class="card-text m-0 p-0 text-end price"><span>Price:</span> ${article.price}€</p>
                     </div>
                     <hr>
-                    <a href="#" class="btn btn-danger mt-auto"><i class="bi bi-bag-plus-fill"> Add to card</i></a>
+                    <button type="button" class="btn btn-danger mt-auto addToCart"><i class="bi bi-bag-plus-fill"> Add to cart</i></button>
                 </div>
             </div>
         </div>
@@ -71,3 +71,4 @@ function rating(number, decimal){
     star += (decimal >= 5) ? `<i class="bi bi-star-half"></i> ` : `<i class="bi bi-star"></i> `
     return star
 }
+
