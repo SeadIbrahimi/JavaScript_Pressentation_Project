@@ -9,16 +9,11 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <div id="alerts" style="transform: all 1s ease-in-out !important; visability: hidden; z-index: 1020 !important; position: fixed!important;" class="container-fluid w-100"></div>
-    <header></header>
-    <div id="categories" class="container-fluid bg-body-tertiary"></div>
+    
+    <header style="z-index: 1020 !important; position: fixed!important;" class="w-100"></header>
+    <div id="alerts" style="transform: all 1s ease-in-out !important; z-index: 1020 !important; position: fixed!important; margin-top:100px !important;" class="container-fluid w-100"></div>
+    <div id="categories"  class="container-fluid bg-body-tertiary"></div>
     <section id="slider"></section>
-    <section>
-        <div class="container bg-light ads">
-            <img src="https://hhstsyoejx.gjirafa.net/gjirafa50core/images/0b023043-5e72-4efc-9169-0d9bf9280493/0b023043-5e72-4efc-9169-0d9bf9280493.webp?w=1280" alt="">
-        </div>
-
-    </section>
     <section class="bg-light pt-5 pb-5 shadow-sm ">
         <div class="container ">
              <!-- SORTIMI -->
@@ -51,21 +46,23 @@
         import {initHeader} from './components/Header.js';
         import {composeCategories} from './components/Categories.js'
         import {initSlider} from './components/Slider.js';
-        import {getArticles, composeArticles} from './components/Articles.js';
+        import {getArticles, composeArticles, composingArticles} from './components/Articles.js';
         import {initFooter} from './components/Footer.js';
+        import {addToCart} from './components/AddToCart.js'
         
 
         initHeader(document.querySelector('header'))
         getArticles('categories', 'products').then(object => document.querySelector('#categories').innerHTML = composeCategories(object.data))
         initSlider(document.querySelector('#slider'))
+        document.querySelector('#articles').innerHTML = composingArticles()
         getArticles('', 'products').then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
         initFooter(document.querySelector('footer'))
+        
         // CATEGORIES FUNCION
         setTimeout(() => {
             let parent = document.querySelectorAll('.btn-nav')
             for (let child of parent){
                 addDynamicEventListener(document.body, 'click', `li, ${child.getAttribute('id')}`, function (e) {
-                    e.preventDefault()
                     getArticles('category', 'products', e.target.attributes[0].value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
                 })
             }
@@ -76,58 +73,21 @@
         
         setInterval(() => {
             const CartCurrentValue = (localStorage.getItem('addedToCart') == null) ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
-            
             document.querySelector('.added1').setAttribute('class' , `bi bi-${CartCurrentValue}-circle added1`)
         }, 500);
 
         // ADD TO CARD BUTTON FUNCTION
-        setTimeout(() => {
-                    
+        setTimeout(() =>{
             addDynamicEventListener(document.body, 'click', `.addToCart`, function (e) {
-                e.preventDefault()
-                let alert = document.querySelector('#alerts')
-                let cartParentsId = e.target.parentElement.parentElement.parentElement.querySelector('a').attributes[0].value
-                let productID = cartParentsId.split('=')
-                getArticles('id', 'products', productID[1]).then(object => {
-                    let addedToCart = []
-                    addedToCart = (localStorage.getItem('addedToCart') == null) ? [] : JSON.parse(localStorage.getItem('addedToCart'))
-                    
-                    if(addedToCart.length > 0) {
-                        let existing_cart = []
-                        existing_cart = addedToCart.filter(a => a == object.data.id)
-                        if(existing_cart.length > 0) {
-                            localStorage.setItem('addedToCart', JSON.stringify([...addedToCart, object.data.id]))
-                            alert.innerHTML =  
-                                `<div class="alert alert-info mt-5 container">You have added item <strong>'${object.data.title}'</strong> more than ones, you can remove it from your card <strong><a style="text-decoration: underline; color: none;" href="#">card</a></strong>.</div>`
-                                alert.style.visibility="visable"
-                            setTimeout(() =>{
-                                alert.style.visibility="hidden"
-                                document.querySelector('#alerts').innerHTML = ''
-                            }, 3000);
-                        } else {
-                            localStorage.setItem('addedToCart', JSON.stringify([...addedToCart, object.data.id]))
-                            alert.innerHTML =  
-                                `<div class="alert alert-success mt-5 container">You have <strong>successfully</strong> added item <strong>'${object.data.title}'</strong> on your <strong>cart</strong>.</div>`
-                                alert.style.visibility="visable"
-                            setTimeout(() =>{
-                                alert.style.visibility="hidden"
-                                document.querySelector('#alerts').innerHTML = ''
-                            }, 3000);  
-                        }
-                    } else {
-                        localStorage.setItem('addedToCart',JSON.stringify([object.data.id]))
-                        alert.innerHTML =  
-                            `<div class="alert alert-success mt-5 container">You have <strong>successfully</strong> added item <strong>'${object.data.title}'</strong> on your <strong>cart</strong>.</div>`
-                            alert.style.visibility="visable"
-                        setTimeout(() =>{
-                            alert.style.visibility="hidden"
-                            document.querySelector('#alerts').innerHTML = ''
-                        }, 3000);    
-                        
-                    }
-                })
-            })
-        }, 500)
+            e.preventDefault()
+
+            let cartParentsId = e.target.parentElement.parentElement.parentElement.querySelector('a').attributes[0].value
+
+            let productID = cartParentsId.split('=')
+             getArticles('id', 'products', `${productID[1]}`).then(object => addToCart(object.data))
+
+        }, 500)})
+
 
         // SEARCH FUNCTION
         setTimeout(() => {

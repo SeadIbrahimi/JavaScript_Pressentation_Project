@@ -1,5 +1,7 @@
 
 
+
+
 export async function getArticles(type, what, value){
     let url = `https://dummyjson.com/${what}`
 
@@ -25,7 +27,6 @@ export async function getArticles(type, what, value){
     
     
 export function composeArticles(articles){
-    
     
     let html = `
     <div class="row">
@@ -60,8 +61,13 @@ export function composeArticles(articles){
     
     html += `
     </div>`
+
+
+
+    
     return html
-        
+
+   
 }
 function rating(number, decimal){
     let star = ''
@@ -72,3 +78,32 @@ function rating(number, decimal){
     return star
 }
 
+export function composingArticles(){
+    let html = `<div class="row">`
+
+    for(let i = 0; i < 30; i++){
+        html += `
+        <div class="col-lg-3 mb-3 d-flex align-items-stretch"> 
+                <div class="card" aria-hidden="true">
+                    <img src="../assets/img/no_image.png" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title placeholder-glow">
+                            <span class="placeholder col-6"></span>
+                        </h5>
+                        <p class="card-text placeholder-glow">
+                            <span class="placeholder col-7"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-4"></span>
+                            <span class="placeholder col-6"></span>
+                            <span class="placeholder col-8"></span>
+                        </p>
+                        <a class="btn btn-primary disabled placeholder col-6" aria-disabled="true"></a>
+                    </div>
+                </div>
+            </div>
+        `
+    }
+    
+    html += `</div>`
+    return html
+}

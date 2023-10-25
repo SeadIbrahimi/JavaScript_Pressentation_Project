@@ -9,9 +9,9 @@
     <link rel="stylesheet" href="./assets/css/style.css">
 </head>
 <body>
-    <header class="position-fixed"></header>
+    <header style="z-index: 1020 !important; position: fixed!important;" class="w-100"></header>
     
-    <section class="bg-light pt-5 pb-5 shadow-sm itemDetails">
+    <section class="bg-light pb-5 shadow-sm itemDetails" style="padding-top: 150px !important;">
         <div id="itemDetails" class="container">
 
         </div>
@@ -32,7 +32,7 @@
         import {getArticles} from './components/Articles.js';
         import {composeArticle, composeFeedback} from './components/Article.js';
         import {initFooter} from './components/Footer.js';
-        
+        import {addToCart} from './components/AddToCart.js';
 
         initHeader(document.querySelector('header'))
        
@@ -49,6 +49,24 @@
 
 
         initFooter(document.querySelector('footer'))
+
+        // ADD TO CARD iNTERVAL FUNCTION
+        
+        setInterval(() => {
+            const CartCurrentValue = (localStorage.getItem('addedToCart') == null) ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
+            
+            document.querySelector('.added1').setAttribute('class' , `bi bi-${CartCurrentValue}-circle added1`)
+        }, 500);
+
+        // ADD TO CARD BUTTON FUNCTION
+        setTimeout(() =>{
+            addDynamicEventListener(document.body, 'click', `.addToCart`, function (e) {
+            e.preventDefault()
+
+            let productID = window.location.href.split('=')
+             getArticles('id', 'products', `${productID[1]}`).then(object => addToCart(object.data))
+
+        }, 500)})
         
 
         // setTimeout(() => {  RREGULLOJE SEARCH tek Article

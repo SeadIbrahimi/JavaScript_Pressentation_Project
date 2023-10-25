@@ -7,15 +7,16 @@ export function composeArticle(article){
         <div class="row g-0">
             <div class="col-md-5 container ">
                 <div id="carouselExampleIndicators" class="carousel slide pb-3">
-                    <div class="carousel-inner  d-flex w-100  align-items-center">`
+                    <div  class="carousel-inner ">`
                     let i = 0
                     for (let image of article.images){
-                    html += `<div class=${(i===0) ? `"carousel-item active"` : "carousel-item"}>
-                                <img src="${image}" class="d-block w-100">
+                    html += `<div  class=${(i===0) ? `"carousel-item active"` : "carousel-item"}>
+                                <img src="${image}" class="h-100">
                             </div>`
                         i++
                     }
-            html +=`</div>
+            html +=`
+                    </div>
                     <button class="carousel-control-prev " type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                         <span class="visually-hidden">Previous</span>
@@ -43,7 +44,7 @@ export function composeArticle(article){
                             </div>
                         
                             <div class="col-md-6 p-2">
-                                <a href="#" class="btn btn-danger"><i class="bi bi-bag-plus-fill"> Add to card</i></a>
+                                <a href="#" class="btn btn-danger"><i class="bi bi-bag-plus-fill addToCart"> Add to card</i></a>
                                 <a href="#" class="btn btn-danger"><i class="bi bi-bag-plus-fill"> Buy and proceed</i></a>
                             </div>
                         

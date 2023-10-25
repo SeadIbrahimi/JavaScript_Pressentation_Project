@@ -18,21 +18,20 @@ export function initHeader(div){
 
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link" href="login.html"><i class="bi bi-people"></i></a>
+                  <a href="login.html" class="nav-link"><i class="bi bi-people"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="login.html"><i class="bi bi-heart"></i></a>
+                  <a href="login.html" class="nav-link" ><i class="bi bi-heart"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="login.html"><i class="bi bi-cart-check"></i> <i class="bi bi-0-circle added1"></i></a>
+                  <a href="cart.html" class="nav-link"><i class="bi bi-cart-check"></i> <i class="bi bi-0-circle added1"></i></a>
                 </li>
-                
             </ul>
 
           </div>
         </div>
 
-      </nav>
+    </nav>
       
 
     `
