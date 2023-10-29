@@ -35,7 +35,7 @@
         </div>
     </section>
     
-    <footer></footer>
+    <footer class=" bg-dark text-light"></footer>
 
     
 
@@ -53,10 +53,12 @@
 
         initHeader(document.querySelector('header'))
         getArticles('categories', 'products').then(object => document.querySelector('#categories').innerHTML = composeCategories(object.data))
+        
         initSlider(document.querySelector('#slider'))
+
         document.querySelector('#articles').innerHTML = composingArticles()
         getArticles('', 'products').then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
-        initFooter(document.querySelector('footer'))
+        getArticles('categories', 'products').then(object => document.querySelector('footer').innerHTML = initFooter(object.data))
         
         // CATEGORIES FUNCION
         setTimeout(() => {
@@ -68,6 +70,10 @@
             }
 
         }, 500)
+
+        
+
+
 
         // ADD TO CARD iNTERVAL FUNCTION
         
@@ -95,11 +101,22 @@
                 e.preventDefault()
                 
                 let search = document.querySelector('.search-nav')
-                console.log(search.value)
                 getArticles('search', 'products',search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
             })
         }, 500)
         
+
+        //FOOTER CATEGORIES
+        setTimeout(() => {
+            let parent = document.querySelectorAll('.btn-nav-f')
+            for (let child of parent){
+                addDynamicEventListener(document.body, 'click', `li, ${child.getAttribute('id')}`, function (e) {
+                    
+                    getArticles('category', 'products', e.target.attributes[0].value).then(object => document.querySelector('footer').innerHTML = initFooter(object.data))
+                })
+            }
+
+        }, 500)
     </script>
 </body>
 </html>

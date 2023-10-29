@@ -10,8 +10,8 @@ export function composeCategories(category){
   for (let product of category){
     html += 
         `<li class="nav-item btn-parent">
-          <button id="${product}"  class="nav-link btn-nav text-capitalize ">
-          ${product.includes('-') ? product.replace('-', ' ') : product}
+          <button id="${product}" class="active nav-link btn-nav text-capitalize">
+            ${product.includes('-') ? product.replace('-', ' ') : product}
           </button>
         </li>`
     }

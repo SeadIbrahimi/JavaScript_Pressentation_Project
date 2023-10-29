@@ -20,7 +20,7 @@
         </div>
     </section>
     
-    <footer></footer>
+    <footer class=" bg-dark text-light"></footer>
 
     
 
@@ -31,11 +31,11 @@
         import {initHeader} from './components/Header.js';
         import {getArticles} from './components/Articles.js';
         import {composeArticle, composeFeedback} from './components/Article.js';
-        import {initFooter} from './components/Footer.js';
+        import {initFoterNoCategories} from './components/Footer.js';
         import {addToCart} from './components/AddToCart.js';
 
         initHeader(document.querySelector('header'))
-       
+        initFoterNoCategories(document.querySelector('footer'))
         const paramsString = window.location.href.split('=')[1];
 
         if(window.location.href.includes('?')) {

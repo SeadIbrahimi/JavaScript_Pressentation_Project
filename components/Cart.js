@@ -10,8 +10,8 @@ export function cart(articles){
                     <p class="mb-0 text-wrap ">If you don't have an account you can register right now!</p>
                   </div>
                   <div class="d-flex align-items-center justify-content-center flex-column flex-md-row">
-                    <a href="/register.html" class="btn btn-outline-primary me-0 me-md-2 mb-2 mb-md-0 w-100">Register</a>
-                    <a href="/login.html" class="btn btn-primary shadow-0 text-nowrap w-100">Log in</a>
+                    <a href="/register.html" class="btn btn-outline-secondary me-0 me-md-2 mb-2 mb-md-0 w-100">Register</a>
+                    <a href="/login.html" class="btn btn-secondary shadow-0 text-nowrap w-100">Log in</a>
                   </div>
                 </div>
               </div>
@@ -158,10 +158,10 @@ export function cart(articles){
               <!-- Checkout -->
             </div>
             <div class="col-xl-4 col-lg-4 d-flex justify-content-center justify-content-lg-end">
-              <div class="ms-lg-4 mt-4 mt-lg-0" style="max-width: 320px;">
+              <div class="ms-lg-4 mt-4 mt-lg-0" style="width: 320px;">
                 <h6 class="mb-3">Summary</h6>
                 
-                <div style="max-height: 300px; overflow:scroll;">`
+                <div style="max-height: 300px; overflow-y:scroll; overflow-y: auto;">`
                 if(articles !== null){
                   for (let article of articles){
                     html +=`
@@ -190,7 +190,7 @@ export function cart(articles){
                   </div>
                 <hr />
                 <h6 class="text-dark my-4">Items in cart</h6>
-                <div style="max-height: 400px; overflow:scroll;">`
+                <div style="max-height: 400px; overflow-y:scroll; overflow-y: auto;">`
                 if(articles !== null){
                   for (let article of articles){
                     let img = (article.thumbnail !== null) ? article.thumbnail : '../assets/img/no_image.png'

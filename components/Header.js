@@ -1,6 +1,6 @@
 export function initHeader(div){
     div.innerHTML= `
-    <nav class="navbar d-flex justify-content-center navbar-expand-lg bg-body-tertiary">
+    <nav class="navbar d-flex justify-content-center navbar-expand-lg bg-body-tertiary text-light">
         
         <div class="container-fluid bg-dark">
             <!-- tablet mode  -->
@@ -10,7 +10,7 @@ export function initHeader(div){
 
           <div class="container p-3 collapse navbar-collapse d-inline-flex flex-row justify-content-between" id="navbarTogglerDemo01">
 
-            <a class="navbar-brand" href="#"><img src="./assets/img/logo-2.png" alt=""></a>
+            <a class="navbar-brand" href="index.html"><img src="./assets/img/logo.png" alt=""></a>
             
             <form class="search" role="search">
               <input class="form-control search-nav  me-2 bg-secondary" type="search" placeholder="Kërko produkte..." aria-label="Search">
@@ -21,7 +21,7 @@ export function initHeader(div){
                   <a href="login.html" class="nav-link"><i class="bi bi-people"></i></a>
                 </li>
                 <li class="nav-item">
-                  <a href="login.html" class="nav-link" ><i class="bi bi-heart"></i></a>
+                  <a href="dashboard.html" class="nav-link" ><i class="bi bi-heart"></i></a>
                 </li>
                 <li class="nav-item">
                   <a href="cart.html" class="nav-link"><i class="bi bi-cart-check"></i> <i class="bi bi-0-circle added1"></i></a>

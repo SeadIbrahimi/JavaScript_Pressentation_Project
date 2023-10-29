@@ -36,10 +36,10 @@ export function composeArticles(articles){
         let img = (article.thumbnail !== null) ? article.thumbnail : '../assets/img/no_image.png'
         html += `
         <div class="col-lg-3 mb-3 d-flex align-items-stretch">
-            <div class="card">
+            <div id="cardsHome"  class="card">
                 <a href="article.html?id=${article.id}"><div class="imgholder"><img src='${img}' class="card-img-top " alt="${article.title}"></div></a>
                 <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">${article.title}</h5>
+                    <h5 class="card-title text-capitalize">${article.title}</h5>
                     <hr>
                     <p class="card-text rating">${rating(ratingValue[0], ratingValue[1])}</p>
                     <div class="d-flex col justify-content-between text-capitalize align-items-center">

@@ -1,4 +1,5 @@
 export function initSlider(div){
+    
     div.innerHTML= `
     <div id="carouselExampleCaptions" class="carousel slide carousel-fade">
       <div class="carousel-indicators">

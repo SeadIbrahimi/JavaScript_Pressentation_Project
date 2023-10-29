@@ -45,7 +45,7 @@ export function composeArticle(article){
                         
                             <div class="col-md-6 p-2">
                                 <a href="#" class="btn btn-danger"><i class="bi bi-bag-plus-fill addToCart"> Add to card</i></a>
-                                <a href="#" class="btn btn-danger"><i class="bi bi-bag-plus-fill"> Buy and proceed</i></a>
+                                <a href="#" class="btn btn-danger"><i class="bi bi-heart"> Add to wishlist</i></a>
                             </div>
                         
                     </div>
@@ -73,8 +73,10 @@ export function composeArticle(article){
 
 export function composeFeedback(messages, cardId){
     
-    let html = `<div class="toast-container position-static bg-white border rounded">
-                    <h1 class="m-5 border-bottom">Feedback</h1>`
+    let html = `
+    <h1 class="m-5 border-bottom ">Feedback</h1>
+    <div class="toast-container position-static  pt-5" style="max-height: 400px; overflow-y:scroll; overflow-y: auto;">`
+                    
                     
     let intCardId = parseInt(cardId)
     
@@ -83,7 +85,7 @@ export function composeFeedback(messages, cardId){
             html += `
                     <div class="toast show mx-4" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
-                            <strong class="me-auto">${message.user.username}</strong>
+                            <strong class="me-auto">User: ${message.user.username}</strong>
                         </div>
                         <div class="toast-body">
                             ${message.body}
