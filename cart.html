@@ -11,8 +11,10 @@
 <body>
     
     <header style="z-index: 1020 !important; position: fixed!important;" class="w-100"></header>
+    <div id="alerts" style="transform: all 1s ease-in-out !important; z-index: 1020 !important; position: fixed!important; margin-top:100px !important;" class="container-fluid w-100"></div>
+
     <!-- Sign In  -->
-    <section id="checkout" class="bg-light py-5" style="padding-top: 150px !important;">
+    <section id="checkout" class="bg-light py-5" style="padding-top: 162px !important;">
         
     </section>
       
@@ -43,7 +45,7 @@
 
             // CHECK CART VALUE
             setInterval(() => {
-            const CartCurrentValue = (localStorage.getItem('addedToCart') == null) ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
+            const CartCurrentValue = (localStorage.getItem('addedToCart') == null || localStorage.getItem('addedToCart') == "[]") ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
             
             document.querySelector('.added1').setAttribute('class' , `bi bi-${CartCurrentValue}-circle added1`)
             }, 500);
@@ -57,15 +59,74 @@
                     const itemsOfStorage = JSON.parse(localStorage.getItem('addedToCart')).filter(i => i.id != itemId[1])
                     
                         if(JSON.parse(localStorage.getItem("addedToCart")).length > 1){
-                            console.log('x')
+                            
                             localStorage.setItem('addedToCart',JSON.stringify([...itemsOfStorage]))
                         }else{
-                            console.log('x')
-                            localStorage.clear('addedToCart')
+                            
+                            localStorage.setItem('addedToCart', '[]')
                         }
                      window.location.href = 'http://127.0.0.1:5500/cart.html'
                 })
             }, 500)
+            
+            // logout
+        addDynamicEventListener(document.body, 'click', '#logout', function (e) {
+            e.preventDefault()
+            localStorage.removeItem('loggedin_user')
+            window.location.href = 'http://127.0.0.1:5500/index.html'
+        })
+        
+        addDynamicEventListener(document.body, 'submit', '#order', function (e) {
+            e.preventDefault()
+            const order = {
+            name: e.target[0].value,
+            surname: e.target[1].value,
+            phone: e.target[2].value,
+            email: e.target[3].value,
+            address: e.target[4].value,
+            city: e.target[5].value,
+            postcode: e.target[6].value,
+            message: e.target[7].value,
+            order: {items: JSON.parse(localStorage.getItem('addedToCart'))}
+            }
+            if(localStorage.getItem('addedToCart')){
+                if(JSON.parse(localStorage.getItem('addedToCart')).length > 0){
+                const orders = (localStorage.getItem('orders') == null) ? [] : JSON.parse(localStorage.getItem('orders'))
+
+                if (localStorage.getItem('orders')){
+                    localStorage.setItem('orders', JSON.stringify([...orders, order]))
+                    document.querySelector('#alerts').innerHTML = `<div class="alert alert-success mt-5 container">Thank you for your order. Your produtcs will deliver so soon.</div>`
+                    setTimeout(() =>{
+                        
+                        alert.innerHTML = ''
+                    }, 3000);
+                    localStorage.setItem('addedToCart', JSON.stringify([]))
+                }else{
+                    localStorage.setItem('orders', JSON.stringify([order]))
+                    document.querySelector('#alerts').innerHTML = `<div class="alert alert-success mt-5 container">Thank you for your order. Your produtcs will deliver so soon.</div>`
+                    setTimeout(() =>{
+                        
+                        alert.innerHTML = ''
+                    }, 3000);
+                    localStorage.setItem('addedToCart', JSON.stringify([]))
+                }
+                }else{
+                    document.querySelector('#alerts').innerHTML = `<div class="alert alert-info mt-5 container">The cart is empty. Please order at least one product first.</div>`
+                        setTimeout(() =>{
+                            
+                            alert.innerHTML = ''
+                        }, 3000);
+                }
+            }else{
+                document.querySelector('#alerts').innerHTML = `<div class="alert alert-info mt-5 container">The cart is empty. Please order at least one product first.</div>`
+                      setTimeout(() =>{
+                          
+                          alert.innerHTML = ''
+                      }, 3000);
+            }
+            
+            
+        })
     </script>
 </body>
 </html>

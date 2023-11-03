@@ -1,7 +1,7 @@
 export function addToCart(article){
     let alert = document.querySelector('#alerts')
     let addedToCart = []
-    addedToCart = (localStorage.getItem('addedToCart') == null) ? [] : JSON.parse(localStorage.getItem('addedToCart'))
+    addedToCart = (localStorage.getItem('addedToCart') == null || localStorage.getItem('addedToCart') == "") ? [] : JSON.parse(localStorage.getItem('addedToCart'))
     
     
         if(addedToCart.length > 0) {
@@ -37,3 +37,4 @@ export function addToCart(article){
         }
     
 }
+

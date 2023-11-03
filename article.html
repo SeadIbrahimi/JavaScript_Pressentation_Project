@@ -10,7 +10,8 @@
 </head>
 <body>
     <header style="z-index: 1020 !important; position: fixed!important;" class="w-100"></header>
-    
+    <div id="alerts" style="transform: all 1s ease-in-out !important; z-index: 1020 !important; position: fixed!important; margin-top:100px !important;" class="container-fluid w-100"></div>
+
     <section class="bg-light pb-5 shadow-sm itemDetails" style="padding-top: 150px !important;">
         <div id="itemDetails" class="container">
 
@@ -33,9 +34,10 @@
         import {composeArticle, composeFeedback} from './components/Article.js';
         import {initFoterNoCategories} from './components/Footer.js';
         import {addToCart} from './components/AddToCart.js';
+        import {addToWishList} from './components/Wishlist.js'
 
         initHeader(document.querySelector('header'))
-        initFoterNoCategories(document.querySelector('footer'))
+        
         const paramsString = window.location.href.split('=')[1];
 
         if(window.location.href.includes('?')) {
@@ -48,12 +50,12 @@
         
 
 
-        initFooter(document.querySelector('footer'))
+        initFoterNoCategories(document.querySelector('footer'))
 
         // ADD TO CARD iNTERVAL FUNCTION
         
         setInterval(() => {
-            const CartCurrentValue = (localStorage.getItem('addedToCart') == null) ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
+            const CartCurrentValue = (localStorage.getItem('addedToCart') == null || localStorage.getItem('addedToCart') == "[]") ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
             
             document.querySelector('.added1').setAttribute('class' , `bi bi-${CartCurrentValue}-circle added1`)
         }, 500);
@@ -67,16 +69,25 @@
              getArticles('id', 'products', `${productID[1]}`).then(object => addToCart(object.data))
 
         }, 500)})
+
+
+        // ADD TO WISHLIST BUTTON FUNCTION
+        setTimeout(() =>{
+            addDynamicEventListener(document.body, 'click', `.addToWishList`, function (e) {
+            e.preventDefault()
+
+            let productID = window.location.href.split('=')
+             getArticles('id', 'products', `${productID[1]}`).then(object => addToWishList(object.data))
+
+        }, 500)})
         
 
-        // setTimeout(() => {  RREGULLOJE SEARCH tek Article
-        //     addDynamicEventListener(document.body, 'submit', `form, .search-nav`, function (e) {
-        //         e.preventDefault()
-        //         let search = document.querySelector('.search-nav')
-        //         console.log(search.value)
-        //         getArticle('search', 'products', search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
-        //     })
-        // }, 500)
+        // logout
+        addDynamicEventListener(document.body, 'click', '#logout', function (e) {
+            e.preventDefault()
+            localStorage.removeItem('loggedin_user')
+            window.location.href = 'http://127.0.0.1:5500/index.html'
+        })
         
     </script>
 </body>

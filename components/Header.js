@@ -1,4 +1,36 @@
 export function initHeader(div){
+    const user_is_loggedin = localStorage.getItem('loggedin_user')
+    let user = 'Guest'
+    let icon = ''
+
+    if(user_is_loggedin == null){
+      icon = `<a href="login.html" class="nav-link"><i class="bi bi-people"></i></a>`
+    }else if (user_is_loggedin == 'admin@hotmail.com'){
+      user = user_is_loggedin
+      icon = `
+        <li class="nav-item dropdown">
+          <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            ${user_is_loggedin} 
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="adminDashboard.html">Dashboard</a></li>
+            <li><a id="logout" type="button" class="btn dropdown-item">Log Out</a></li>
+          </ul>
+        </li>`
+    }else{
+      user = user_is_loggedin
+      icon = `
+        <li class="nav-item dropdown">
+          <button class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            ${user_is_loggedin} 
+          </button>
+          <ul class="dropdown-menu dropdown-menu-dark">
+            <li><a class="dropdown-item" href="dashboard.html"> Wishlist <i class="bi bi-heart"></i></a></li>
+            <li><a id="logout" type="button" class="btn dropdown-item">Log Out</a></li>
+          </ul>
+        </li>`
+    }
+    
     div.innerHTML= `
     <nav class="navbar d-flex justify-content-center navbar-expand-lg bg-body-tertiary text-light">
         
@@ -18,11 +50,9 @@ export function initHeader(div){
 
             <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <a href="login.html" class="nav-link"><i class="bi bi-people"></i></a>
+                  ${icon}
                 </li>
-                <li class="nav-item">
-                  <a href="dashboard.html" class="nav-link" ><i class="bi bi-heart"></i></a>
-                </li>
+                
                 <li class="nav-item">
                   <a href="cart.html" class="nav-link"><i class="bi bi-cart-check"></i> <i class="bi bi-0-circle added1"></i></a>
                 </li>

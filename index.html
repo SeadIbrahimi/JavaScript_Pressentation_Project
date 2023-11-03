@@ -16,18 +16,7 @@
     <section id="slider"></section>
     <section class="bg-light pt-5 pb-5 shadow-sm ">
         <div class="container ">
-             <!-- SORTIMI -->
-            <div class="dropdown">
-                <button class="btn btn-secondary dropdown-toggle mb-4" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Sort by
-                </button>
-               
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-              </div>
+             
             
             <div id="articles">
                 <!-- CARDS -->
@@ -78,7 +67,7 @@
         // ADD TO CARD iNTERVAL FUNCTION
         
         setInterval(() => {
-            const CartCurrentValue = (localStorage.getItem('addedToCart') == null) ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
+            const CartCurrentValue = (localStorage.getItem('addedToCart') == null || localStorage.getItem('addedToCart') == "[]") ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
             document.querySelector('.added1').setAttribute('class' , `bi bi-${CartCurrentValue}-circle added1`)
         }, 500);
 
@@ -104,7 +93,6 @@
                 getArticles('search', 'products',search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
             })
         }, 500)
-        
 
         //FOOTER CATEGORIES
         setTimeout(() => {
@@ -117,6 +105,13 @@
             }
 
         }, 500)
+        
+        // logout
+        addDynamicEventListener(document.body, 'click', '#logout', function (e) {
+            e.preventDefault()
+            localStorage.removeItem('loggedin_user')
+            window.location.href = 'http://127.0.0.1:5500/index.html'
+        })
     </script>
 </body>
 </html>

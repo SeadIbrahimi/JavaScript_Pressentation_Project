@@ -35,64 +35,60 @@
         import {getArticles, composeArticles, composingArticles} from './components/Articles.js';
         import {initFoterNoCategories} from './components/Footer.js';
         import {wishList} from './components/Wishlist.js';
+
+        // if not loggedin redirect to home page
+        const user_is_loggedin = localStorage.getItem('loggedin_user')
+
+        if(user_is_loggedin == null) {
+            window.location.href = 'http://127.0.0.1:5500/index.html'
+        }
         
 
         initHeader(document.querySelector('header'))
         
         initFoterNoCategories(document.querySelector('footer'))
         
-        document.querySelector('#articles').innerHTML = wishList(JSON.parse(localStorage.getItem('addedToCart')))
-
-        // ADD TO CARD iNTERVAL FUNCTION
+        if(localStorage.getItem('addToWishList') == null || localStorage.getItem('addToWishList') == "[]"){
+            document.querySelector('#articles').innerHTML = '<h3 class="text-center">You have no items on your wishlist! Please go <a href="./index.html">here</a> to add products on your wishlist!</h3>'
+        }else{
+            document.querySelector('#articles').innerHTML = wishList(JSON.parse(localStorage.getItem('addToWishList')))
+        }
         
-        setInterval(() => {
-            const CartCurrentValue = (localStorage.getItem('addedToCart') == null) ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
-            document.querySelector('.added1').setAttribute('class' , `bi bi-${CartCurrentValue}-circle added1`)
-        }, 500);
 
          // CHECK CART VALUE
-         setInterval(() => {
-            const CartCurrentValue = (localStorage.getItem('addedToCart') == null) ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
+         setTimeout(() =>{
+            const CartCurrentValue = (localStorage.getItem('addedToCart') == null || localStorage.getItem('addedToCart') == "[]") ? "0" : JSON.parse(localStorage.getItem('addedToCart')).length
             
             document.querySelector('.added1').setAttribute('class' , `bi bi-${CartCurrentValue}-circle added1`)
             }, 500);
 
 
-        // ON LOAD CHANGE ADD TO CARD VALUE TO REMOVE FROM CARD
-        setTimeout(() =>{
-            addDynamicEventListener(document.body, 'load', `body`, function (e) {
-
-                document.querySelector('.addToCart').innerHTML = `<i class="bi bi-x-lg"></i> Remove From Card`
-                
-        }, 500)})
+        
 
         // REMOVE FROM BUTTON FUNCTION
         setTimeout(() =>{
-            addDynamicEventListener(document.body, 'click', `.addToCart`, function (e) {
+            addDynamicEventListener(document.body, 'click', `.addToWishList`, function (e) {
                 e.preventDefault()
                 let itemId = e.target.parentElement.parentElement.querySelector('a').getAttribute('href').split('=')
 
-                const itemsOfStorage = JSON.parse(localStorage.getItem('addedToCart')).filter(i => i.id != itemId[1])
+                const itemsOfStorage = JSON.parse(localStorage.getItem('addToWishList')).filter(i => i.id != itemId[1])
                 
-                if(JSON.parse(localStorage.getItem("addedToCart")).length > 1){
-                    localStorage.setItem('addedToCart',JSON.stringify([...itemsOfStorage]))
+                if(JSON.parse(localStorage.getItem("addToWishList")).length > 1){
+                    localStorage.setItem('addToWishList',JSON.stringify([...itemsOfStorage]))
                 }else{
-                    localStorage.clear('addedToCart')
+                    localStorage.setItem('addToWishList', '[]')
+                    document.querySelector('#articles').innerHTML = '<h3 class="text-center">You have no items on your wishlist! Please go <a href="./index.html">here</a> to add products on your wishlist!</h3>'
+
                 }
                 window.location.href = 'http://127.0.0.1:5500/dashboard.html'
         }, 500)})
-
-        // SEARCH FUNCTION
-        setTimeout(() => {
-            addDynamicEventListener(document.body, 'submit', `form, .search-nav`, function (e) {
-                e.preventDefault()
-                
-                let search = document.querySelector('.search-nav')
-                console.log(search.value)
-                getArticles('search', 'products',search.value).then(object => document.querySelector('#articles').innerHTML = composeArticles(object.data))
-            })
-        }, 500)
         
+        // logout
+        addDynamicEventListener(document.body, 'click', '#logout', function (e) {
+            e.preventDefault()
+            localStorage.removeItem('loggedin_user')
+            window.location.href = 'http://127.0.0.1:5500/index.html'
+        })
     </script>
 </body>
 </html>

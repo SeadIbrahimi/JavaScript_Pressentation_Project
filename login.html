@@ -10,26 +10,27 @@
 </head>
 <body>
   <header style="z-index: 1020 !important; position: fixed!important;" class="w-100"></header>
+  <div id="alerts" style="transform: all 1s ease-in-out !important; z-index: 1020 !important; position: fixed!important; margin-top:100px !important;" class="container-fluid w-100"></div>
       <div class="logo container d-flex justify-content-center">
         <img src="../assets/img/logo.png" alt="Shoping Online">
         
       </div>
       
-      <form style="padding: 0px 200px 199px 200px; width: 40%;" class="d-flex flex-column mb-3 justify-content-center container">
+      <form id="login" style="padding: 0px 200px 199px 200px; width: 40%;" class="d-flex flex-column mb-3 justify-content-center container">
         <h3 class="pb-5 text-center">Login</h3>  
         <div class="form-outline mb-4">
-          <input type="email" class="form-control" placeholder="john@yahoo.com" />
-          <label class="form-label" for="form1Example1">Email address</label>
+          <input type="email" class="form-control" placeholder="john@yahoo.com" id="email" required/>
+          <label class="form-label" for="email">Email address</label>
         </div>
       
         <div class="form-outline mb-4">
-          <input type="password" class="form-control" placeholder="********"/>
-          <label class="form-label" for="form1Example2">Password</label>
+          <input type="password" class="form-control" placeholder="********" id="password" required/>
+          <label class="form-label" for="password">Password</label>
         </div>
       
         <div class="d-flex-inline">
-            <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-            <label class="form-check-label" for="form1Example3"> Remember me </label>
+            <input class="form-check-input" type="checkbox" value="" id="admin" checked/>
+            <label class="form-check-label" for="admin"> Admin </label>
         </div>
       
         <button type="submit" class="btn btn-secondary btn-block ">Sign in</button>
@@ -49,6 +50,82 @@
           initHeader(document.querySelector('header'))
 
           initFoterNoCategories(document.querySelector('footer'))
+
+          // if loggedin redirect to dashboard
+        const user_is_loggedin = localStorage.getItem('loggedin_user')
+
+        if(user_is_loggedin != null) {
+            window.location.href = 'http://127.0.0.1:5500/dashboard.html'
+        }
+
+        // login
+        let admin = document.querySelector('#admin')
+        let alert = document.querySelector('#alerts')
+        if(admin.checked == true){
+          console.log(admin.checked)
+            document.querySelector('#login').addEventListener('submit', e => {
+              e.preventDefault()
+
+              const user = {
+                  aEmail: 'admin@hotmail.com', 
+                  aPassword: 'admin123'
+              }
+              let typedEmail = e.target.elements[0].value
+              let typedPassword = e.target.elements[1].value
+              let user_loggedin = false
+              if(typedEmail == user.aEmail && typedPassword == user.aPassword) {
+                  user_loggedin = true
+                  localStorage.setItem('loggedin_user', user.aEmail)
+                  window.location.href = 'http://127.0.0.1:5500/adminDashboard.html'
+              } else {
+                  alert.innerHTML = `<div class="alert alert-info mt-5 container">User is not registered! Please register <a href="register">here!</a></div>`
+                  setTimeout(() =>{
+                      
+                      alert.innerHTML = ''
+                  }, 3000);   
+              }
+          })
+        }
+        else{
+          document.querySelector('#login').addEventListener('submit', e => {
+            e.preventDefault()
+            const users = (localStorage.getItem('users') == null) ? [] : JSON.parse(localStorage.getItem('users')) 
+            let errors = []
+
+            const user = {
+                email: e.target.elements[0].value,
+                password: e.target.elements[1].value
+            }
+
+            if(users.length > 0) {
+                let user_loggedin = false
+                for(let u of users) {
+                    if(u.email == user.email && u.password == user.password) {
+                        user_loggedin = true
+                        break
+                    }
+                }
+
+                if(user_loggedin) {
+                    localStorage.setItem('loggedin_user', user.email)
+                    window.location.href = 'http://127.0.0.1:5500/dashboard.html'
+                } else {
+                  alert.innerHTML = `<div class="alert alert-danger mt-5 container">Credentials are incorrect! Please try again!</div>`
+                  setTimeout(() =>{
+                      
+                      alert.innerHTML = ''
+                  }, 3000);   
+                }
+            } else {
+              alert.innerHTML = `<div class="alert alert-info mt-5 container">User is not registered! Please register <a href="register">here!</a></div>`
+              setTimeout(() =>{
+                
+                alert.innerHTML = ''
+              }, 3000);   
+            }
+        })
+        }
+        
         </script>
 </body>
 </html>

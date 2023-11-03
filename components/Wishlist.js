@@ -25,7 +25,7 @@ export function wishList(articles){
                             <p class="card-text m-0 p-0 text-end price"><span>Price:</span> ${article.price}€</p>
                         </div>
                         <hr>
-                        <button type="button" class="btn btn-danger mt-auto addToCart"><i class="bi bi-bag-plus-fill"> Add to cart</i></button>
+                        <button type="button" class="btn btn-danger mt-auto addToWishList"><i class="bi bi-x-lg"></i> Remove from cart</i></button>
                     </div>
                 </div>
             </div>
@@ -101,4 +101,52 @@ export function wishListLoading(){
     
     html += `</div>`
     return html
+}
+
+
+
+
+export function addToWishList(article){
+    const user_is_loggedin = localStorage.getItem('loggedin_user')
+
+        if(user_is_loggedin == null) {
+            window.location.href = 'http://127.0.0.1:5500/index.html'
+        }else{
+        let alert = document.querySelector('#alerts')
+        let addToWishList = []
+        addToWishList = (localStorage.getItem('addToWishList') == null || localStorage.getItem('addToWishList') == "") ? [] : JSON.parse(localStorage.getItem('addToWishList'))
+        
+        
+            if(addToWishList.length > 0) {
+                let itemExists = addToWishList.filter(a => a.id == article.id)
+                if(itemExists.length > 0) {
+                    localStorage.setItem('addToWishList', JSON.stringify([...addToWishList, article]))
+                    console.log(addToWishList)
+                    alert.innerHTML =  
+                        `<div class="alert alert-info mt-5 container">You have added item <strong>'${article.title}'</strong> more than ones, you can remove it from your <strong><a style="text-decoration: underline; color: none;" href="dashboard.html">wishlist</a></strong>.</div>`
+                        
+                    setTimeout(() =>{
+                        alert.innerHTML = ''
+                    }, 3000);
+                } else {
+                    localStorage.setItem('addToWishList', JSON.stringify([...addToWishList, article]))
+                    alert.innerHTML =  
+                        `<div class="alert alert-success mt-5 container">You have <strong>successfully</strong> added item <strong>'${article.title}'</strong> on your <strong>wishlist</strong>.</div>`
+                        
+                    setTimeout(() =>{
+                        alert.innerHTML = ''
+                    }, 3000);  
+                }
+            } else {
+                localStorage.setItem('addToWishList',JSON.stringify([article]))
+                
+                alert.innerHTML =  
+                    `<div class="alert alert-success mt-5 container">You have <strong>successfully</strong> added item <strong>'${article.title}'</strong> on your <strong>wishlist</strong>.</div>`
+                setTimeout(() =>{
+                    
+                    alert.innerHTML = ''
+                }, 3000);    
+                
+            }
+        }
 }

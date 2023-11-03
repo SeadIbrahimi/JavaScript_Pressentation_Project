@@ -45,7 +45,7 @@ export function composeArticle(article){
                         
                             <div class="col-md-6 p-2">
                                 <a href="#" class="btn btn-danger"><i class="bi bi-bag-plus-fill addToCart"> Add to card</i></a>
-                                <a href="#" class="btn btn-danger"><i class="bi bi-heart"> Add to wishlist</i></a>
+                                <a href="#" class="btn btn-danger"><i class="bi bi-heart addToWishList"> Add to wishlist</i></a>
                             </div>
                         
                     </div>
@@ -71,14 +71,12 @@ export function composeArticle(article){
     return html
 }
 
-export function composeFeedback(messages, cardId){
+export function composeFeedback(messages){
     
     let html = `
     <h1 class="m-5 border-bottom ">Feedback</h1>
     <div class="toast-container position-static  pt-5" style="max-height: 400px; overflow-y:scroll; overflow-y: auto;">`
                     
-                    
-    let intCardId = parseInt(cardId)
     
     for (let message of messages.comments){
         if (message.postId = cardId){
